@@ -1,8 +1,7 @@
 import 'dotenv/config';
-import mongoose from 'mongoose';
-import { Connection } from 'mongoose';
-const MONGO_URI = process.env.MONGO_URI||'';
+import mongoose,{ Connection } from 'mongoose';
 
+const MONGO_URI = process.env.MONGO_URI||'';
 
 if (!MONGO_URI) {
   throw new Error('Please define the MONGO_URI environment variable');
