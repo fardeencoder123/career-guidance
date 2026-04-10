@@ -26,7 +26,7 @@ interface UserProfile {
 
 export default function EditProfile() {
   const [isHoveringAvatar, setIsHoveringAvatar] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [profile, setProfile] = useState<UserProfile>({
