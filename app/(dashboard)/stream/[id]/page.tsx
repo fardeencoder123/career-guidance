@@ -139,16 +139,16 @@ export default function StreamDetailPage() {
 
         <div className="relative z-10 flex flex-col items-start gap-4 w-full max-w-2xl">
           <div className="flex items-center gap-4">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-[1rem] bg-white/10 backdrop-blur-2xl flex items-center justify-center shrink-0 border border-white/20 shadow-inner">
-                <Icon className="w-7 h-7 md:w-8 md:h-8 text-white drop-shadow-lg" />
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-[1rem] bg-white/10 backdrop-blur-2xl flex items-center justify-center shrink-0 border border-white/20 shadow-inner">
+              <Icon className="w-7 h-7 md:w-8 md:h-8 text-white drop-shadow-lg" />
+            </div>
+            <div>
+              <div className="bg-white/10 w-max px-2.5 py-1 rounded-md border border-white/20 backdrop-blur-md mb-1.5 flex items-center gap-1.5">
+                <ShieldCheck className="w-3 h-3 text-emerald-300" />
+                <span className="text-white text-[10px] font-black uppercase tracking-widest drop-shadow-sm">Stream Details</span>
               </div>
-              <div>
-                  <div className="bg-white/10 w-max px-2.5 py-1 rounded-md border border-white/20 backdrop-blur-md mb-1.5 flex items-center gap-1.5">
-                    <ShieldCheck className="w-3 h-3 text-emerald-300" />
-                    <span className="text-white text-[10px] font-black uppercase tracking-widest drop-shadow-sm">Stream Details</span>
-                  </div>
-                  <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight drop-shadow-sm">{stream.title}</h1>
-              </div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight drop-shadow-sm">{stream.title}</h1>
+            </div>
           </div>
           <p className="text-white text-sm md:text-base font-medium leading-relaxed max-w-xl">
             {stream.description}

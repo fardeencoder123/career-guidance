@@ -27,10 +27,10 @@ import {
 
 /* ─── Design tokens ─────────────────────────────────────── */
 const GRAD = {
-  science: 'linear-gradient(135deg, #1E1B4B 0%, #3730A3 35%, #4F46E5 70%, #8B5CF6 100%)',
-  arts: 'linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%)',
+  science: 'linear-gradient(135deg, #1A2980 0%, #26D0CE 100%)',
+  arts: 'linear-gradient(135deg, #ff6b9d 0%, #c95cf4 100%)',
   commerce: 'linear-gradient(135deg, #1f4037 0%, #99f2c8 100%)',
-  engineering: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)',
+  engineering: 'linear-gradient(135deg, #ff8c42 0%, #ff6b6b 100%)',
   law: 'linear-gradient(135deg, #141e30 0%, #243b55 100%)',
   page: 'linear-gradient(135deg, #ff6b9d 0%, #ff8c42 40%, #ff6b6b 70%, #c95cf4 100%)',
   quiz: 'linear-gradient(135deg, #667eea 0%, #764ba2 60%, #f5576c 100%)',

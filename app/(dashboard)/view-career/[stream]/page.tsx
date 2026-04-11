@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'next/navigation';
- 
+import { useParams, useRouter } from 'next/navigation';
+
 import {
     Code, Database, Bot, Globe, Gamepad2, Shield,
     FlaskConical, Palette, TrendingUp, Wrench,
     ChevronDown, ArrowRight, BookOpen, Star, Zap,
     Microscope, Calculator, Music, Landmark, Briefcase,
-    HeartPulse, Cpu, PenTool, Search, Filter,
+    HeartPulse, Cpu, PenTool, Search, Filter, ChevronLeft
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -28,28 +28,28 @@ interface CareerPath {
 /* ─── Static fallback data for all streams ───────────────── */
 const ALL_CAREERS: CareerPath[] = [
     // Science Careers
-    { id: '1', title: 'Software Developer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Build software applications and systems', preparation_for: ['GATE', 'Private IT Firms', 'Startups'], job_opportunities: ['Google', 'Infosys', 'TCS'] },
-    { id: '2', title: 'Data Scientist', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Analyse large datasets to derive insights', preparation_for: ['M.Sc.', 'Private Firms', 'Govt. Research'], job_opportunities: ['Amazon', 'Flipkart', 'ISRO'] },
-    { id: '3', title: 'Artificial Intelligence Engineer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Design AI/ML systems and models', preparation_for: ['GATE', 'IIT-JAM', 'Tech Companies'], job_opportunities: ['Microsoft', 'OpenAI', 'DeepMind'] },
-    { id: '4', title: 'Web Developer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Build responsive websites and web apps', preparation_for: ['GATE', 'IT Companies', 'Startups'], job_opportunities: ['Wipro', 'HCL', 'Freelance'] },
-    { id: '5', title: 'Game Developer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Create video games for multiple platforms', preparation_for: ['GATE', 'Game Studios', 'Indie Dev'], job_opportunities: ['Ubisoft', 'EA', 'Rockstar'] },
-    { id: '6', title: 'Cybersecurity Analyst', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Protect systems from digital threats', preparation_for: ['GATE', 'DRDO', 'Tech Firms'], job_opportunities: ['ISRO', 'NIC', 'Cisco'] },
+    { id: 'software-developer', title: 'Software Developer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Build software applications and systems', preparation_for: ['GATE', 'Private IT Firms', 'Startups'], job_opportunities: ['Google', 'Infosys', 'TCS'] },
+    { id: 'data-scientist', title: 'Data Scientist', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Analyse large datasets to derive insights', preparation_for: ['M.Sc.', 'Private Firms', 'Govt. Research'], job_opportunities: ['Amazon', 'Flipkart', 'ISRO'] },
+    { id: 'ai-engineer', title: 'Artificial Intelligence Engineer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Design AI/ML systems and models', preparation_for: ['GATE', 'IIT-JAM', 'Tech Companies'], job_opportunities: ['Microsoft', 'OpenAI', 'DeepMind'] },
+    { id: 'web-developer', title: 'Web Developer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Build responsive websites and web apps', preparation_for: ['GATE', 'IT Companies', 'Startups'], job_opportunities: ['Wipro', 'HCL', 'Freelance'] },
+    { id: 'game-developer', title: 'Game Developer', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Create video games for multiple platforms', preparation_for: ['GATE', 'Game Studios', 'Indie Dev'], job_opportunities: ['Ubisoft', 'EA', 'Rockstar'] },
+    { id: 'cyber-analyst', title: 'Cybersecurity Analyst', stream: 'science', degree_required: 'B.Sc. Computer Science', description: 'Protect systems from digital threats', preparation_for: ['GATE', 'DRDO', 'Tech Firms'], job_opportunities: ['ISRO', 'NIC', 'Cisco'] },
 
     // Arts Careers
-    { id: '7', title: 'Graphic Designer', stream: 'arts', degree_required: 'B.F.A.', description: 'Create visual content for brands', preparation_for: ['Design Agencies', 'Ad Firms', 'Freelance'], job_opportunities: ['WPP', 'Ogilvy', 'Publicis'] },
-    { id: '8', title: 'Content Writer', stream: 'arts', degree_required: 'B.A. English', description: 'Craft engaging written content', preparation_for: ['Media Houses', 'Publishing', 'Digital'], job_opportunities: ['HarperCollins', 'TOI', 'BuzzFeed'] },
-    { id: '9', title: 'Film Director', stream: 'arts', degree_required: 'B.F.A.', description: 'Direct films and visual narratives', preparation_for: ['FTII', 'Film Studios', 'OTT'], job_opportunities: ['Bollywood', 'Netflix', 'Amazon Prime'] },
-    { id: '10', title: 'UX Designer', stream: 'arts', degree_required: 'B.Des', description: 'Design user-centred digital experiences', preparation_for: ['Design Bootcamps', 'Tech Firms', 'Agencies'], job_opportunities: ['Google', 'Swiggy', 'Zomato'] },
-    { id: '11', title: 'Journalist', stream: 'arts', degree_required: 'B.A. Journalism', description: 'Report and investigate news stories', preparation_for: ['IIMC', 'Media Houses', 'Freelance'], job_opportunities: ['NDTV', 'The Hindu', 'Reuters'] },
-    { id: '12', title: 'Musician', stream: 'arts', degree_required: 'B.Music', description: 'Compose and perform music professionally', preparation_for: ['Music Labels', 'Film Industry', 'Teaching'], job_opportunities: ['T-Series', 'Sony Music', 'Spotify'] },
+    { id: 'graphic-designer', title: 'Graphic Designer', stream: 'arts', degree_required: 'B.F.A.', description: 'Create visual content for brands', preparation_for: ['Design Agencies', 'Ad Firms', 'Freelance'], job_opportunities: ['WPP', 'Ogilvy', 'Publicis'] },
+    { id: 'content-writer', title: 'Content Writer', stream: 'arts', degree_required: 'B.A. English', description: 'Craft engaging written content', preparation_for: ['Media Houses', 'Publishing', 'Digital'], job_opportunities: ['HarperCollins', 'TOI', 'BuzzFeed'] },
+    { id: 'film-director', title: 'Film Director', stream: 'arts', degree_required: 'B.F.A.', description: 'Direct films and visual narratives', preparation_for: ['FTII', 'Film Studios', 'OTT'], job_opportunities: ['Bollywood', 'Netflix', 'Amazon Prime'] },
+    { id: 'ui-ux-designer', title: 'UX Designer', stream: 'arts', degree_required: 'B.Des', description: 'Design user-centred digital experiences', preparation_for: ['Design Bootcamps', 'Tech Firms', 'Agencies'], job_opportunities: ['Google', 'Swiggy', 'Zomato'] },
+    { id: 'journalist', title: 'Journalist', stream: 'arts', degree_required: 'B.A. Journalism', description: 'Report and investigate news stories', preparation_for: ['IIMC', 'Media Houses', 'Freelance'], job_opportunities: ['NDTV', 'The Hindu', 'Reuters'] },
+    { id: 'musician', title: 'Musician', stream: 'arts', degree_required: 'B.Music', description: 'Compose and perform music professionally', preparation_for: ['Music Labels', 'Film Industry', 'Teaching'], job_opportunities: ['T-Series', 'Sony Music', 'Spotify'] },
 
     // Commerce Careers
-    { id: '13', title: 'Chartered Accountant', stream: 'commerce', degree_required: 'B.Com', description: 'Manage accounts, audits and taxation', preparation_for: ['CA Exams', 'Big 4 Firms', 'Govt'], job_opportunities: ['Deloitte', 'KPMG', 'EY'] },
-    { id: '14', title: 'Investment Banker', stream: 'commerce', degree_required: 'BBA', description: 'Manage large financial transactions', preparation_for: ['MBA Finance', 'SEBI', 'Banks'], job_opportunities: ['Goldman Sachs', 'JP Morgan', 'HDFC'] },
-    { id: '15', title: 'Marketing Manager', stream: 'commerce', degree_required: 'BBA', description: 'Drive brand growth and campaigns', preparation_for: ['MBA Marketing', 'Agencies', 'FMCG'], job_opportunities: ['HUL', 'P&G', 'Nestle'] },
-    { id: '16', title: 'Entrepreneur', stream: 'commerce', degree_required: 'BBA', description: 'Build and scale your own business', preparation_for: ['Startup Incubators', 'VC Funding', 'IIM'], job_opportunities: ['Own Startup', 'Accelerators', 'CXO Roles'] },
-    { id: '17', title: 'Financial Analyst', stream: 'commerce', degree_required: 'B.Com', description: 'Analyse financial data and investments', preparation_for: ['CFA', 'SEBI', 'Mutual Funds'], job_opportunities: ['Motilal Oswal', 'Zerodha', 'ICICI'] },
-    { id: '18', title: 'HR Manager', stream: 'commerce', degree_required: 'BBA', description: 'Manage talent and organisational culture', preparation_for: ['MBA HR', 'Corporates', 'Consulting'], job_opportunities: ['Infosys', 'TCS', 'Accenture'] },
+    { id: 'chartered-accountant', title: 'Chartered Accountant', stream: 'commerce', degree_required: 'B.Com', description: 'Manage accounts, audits and taxation', preparation_for: ['CA Exams', 'Big 4 Firms', 'Govt'], job_opportunities: ['Deloitte', 'KPMG', 'EY'] },
+    { id: 'investment-banker', title: 'Investment Banker', stream: 'commerce', degree_required: 'BBA', description: 'Manage large financial transactions', preparation_for: ['MBA Finance', 'SEBI', 'Banks'], job_opportunities: ['Goldman Sachs', 'JP Morgan', 'HDFC'] },
+    { id: 'marketing-manager', title: 'Marketing Manager', stream: 'commerce', degree_required: 'BBA', description: 'Drive brand growth and campaigns', preparation_for: ['MBA Marketing', 'Agencies', 'FMCG'], job_opportunities: ['HUL', 'P&G', 'Nestle'] },
+    { id: 'entrepreneur', title: 'Entrepreneur', stream: 'commerce', degree_required: 'BBA', description: 'Build and scale your own business', preparation_for: ['Startup Incubators', 'VC Funding', 'IIM'], job_opportunities: ['Own Startup', 'Accelerators', 'CXO Roles'] },
+    { id: 'financial-analyst', title: 'Financial Analyst', stream: 'commerce', degree_required: 'B.Com', description: 'Analyse financial data and investments', preparation_for: ['CFA', 'SEBI', 'Mutual Funds'], job_opportunities: ['Motilal Oswal', 'Zerodha', 'ICICI'] },
+    { id: 'hr-manager', title: 'HR Manager', stream: 'commerce', degree_required: 'BBA', description: 'Manage talent and organisational culture', preparation_for: ['MBA HR', 'Corporates', 'Consulting'], job_opportunities: ['Infosys', 'TCS', 'Accenture'] },
 ];
 
 /* ─── Icon map ───────────────────────────────────────────── */
@@ -78,27 +78,27 @@ const ICON_MAP: Record<string, any> = {
 const STREAM_META: Record<string, any> = {
     science: {
         title: 'Science',
-        gradient: 'linear-gradient(135deg,#667eea,#764ba2)',
+        gradient: 'linear-gradient(135deg, #699ff6ff 0%, #96dafaff 100%)',
         icon: FlaskConical,
-        color: '#667eea',
-        description: 'Discover careers in technology, research, and innovation',
-        tagline: 'Explore & Innovate',
+        color: '#a1c4fd',
+        description: 'The Science stream serves as the ultimate catalyst for technological and biological innovation. It opens pathways deep into computer engineering, biotechnology, data science, and quantum research. Students pursuing science gain critical analytical frameworks necessary to solve the most complex computational or medical problems facing humanity today.',
+        tagline: 'Architecting the Future',
     },
     arts: {
-        title: 'Arts',
-        gradient: 'linear-gradient(135deg,#f093fb,#f5576c)',
+        title: 'Arts & Humanities',
+        gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
         icon: Palette,
-        color: '#f5576c',
-        description: 'Unleash your creativity in design, media, and performing arts',
-        tagline: 'Create & Express',
+        color: '#ff9a9e',
+        description: 'The Arts stream is the foundation of human culture and psychological understanding. It provides profound opportunities in graphic design, journalism, mass media, and creative direction. Students here learn to master narrative structures, visual aesthetics, and sociological patterns to influence massive global audiences.',
+        tagline: 'Shaping Human Culture',
     },
     commerce: {
-        title: 'Commerce',
-        gradient: 'linear-gradient(135deg,#ff6b6b,#ffa726)',
+        title: 'Commerce & Finance',
+        gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
         icon: TrendingUp,
-        color: '#ff6b6b',
-        description: 'Build your future in business, finance, and entrepreneurship',
-        tagline: 'Lead & Grow',
+        color: '#f6d365',
+        description: 'Commerce is the absolute backbone of the global economy and enterprise scaling. This stream directs students squarely into investment banking, chartered accountancy, corporate strategy, and venture capital. Professionals in this sector manage extreme fiscal ecosystems, ensure corporate legal compliance, and drive aggressive market growth.',
+        tagline: 'Fueling Global Markets',
     },
 };
 
@@ -203,10 +203,11 @@ function CareerCard({ career, onViewDetails }: { career: CareerPath; onViewDetai
 /* ─── Main Page ──────────────────────────────────────────── */
 export default function ViewCareerStreamPage() {
     const params = useParams();
+    const router = useRouter();
     const stream = params.stream as string;
-    const [careerPaths, setCareerPaths] = useState<CareerPath[]>([]);
+    const [careerPaths, setCareerPaths] = useState<CareerPath[]>(ALL_CAREERS);
     const [filteredCareers, setFilteredCareers] = useState<CareerPath[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
@@ -250,6 +251,11 @@ export default function ViewCareerStreamPage() {
 
     return (
         <div className="space-y-5">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 -mb-3 relative z-20">
+                <button onClick={() => router.back()} className="inline-flex items-center justify-center gap-2 text-slate-500 hover:text-blue-600 font-bold text-[11px] uppercase tracking-widest bg-white/50 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm transition-all hover:bg-white/80 hover:-translate-x-1 border border-slate-200 w-full sm:w-auto">
+                    <ChevronLeft className="w-4 h-4" /> Back to Dashboard
+                </button>
+            </div>
             {/* Hero header */}
             <div className="rounded-3xl p-7 relative overflow-hidden" style={{ background: meta.gradient, boxShadow: '0 20px 60px rgba(102,126,234,0.3)' }}>
                 <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full opacity-20" style={{ background: 'rgba(255,255,255,0.5)' }} />
@@ -264,7 +270,7 @@ export default function ViewCareerStreamPage() {
                             <h1 className="text-3xl font-black text-white leading-tight">{meta.title} Careers</h1>
                         </div>
                     </div>
-                    <p className="text-white/80 text-sm leading-relaxed max-w-lg mb-4">
+                    <p className="text-white/90 text-sm md:text-base leading-relaxed max-w-4xl mb-4 pr-2 sm:pr-8">
                         {meta.description}
                     </p>
                     <div className="flex items-center gap-2">
@@ -317,8 +323,7 @@ export default function ViewCareerStreamPage() {
                             key={career.id}
                             career={career}
                             onViewDetails={() => {
-                                // For now, just log. In future, could navigate to detailed career page
-                                console.log('View details for:', career.title);
+                                router.push(`/career/${career.id}`);
                             }}
                         />
                     ))}

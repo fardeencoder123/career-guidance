@@ -1,11 +1,12 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   ChevronLeft, Briefcase, TrendingUp, Award, Clock,
   TerminalSquare, Laptop, Lightbulb, MapPin, ExternalLink, PlayCircle, Network,
-  Zap, FlaskConical, Activity, Target, Compass, Database, Globe, Calculator
+  Zap, FlaskConical, Activity, Target, Compass, Database, Globe, Calculator,
+  ShieldCheck, PenTool, BookOpen, Music
 } from 'lucide-react';
 
 /* ─── Detailed Expanded Career Data ───────────── */
@@ -349,11 +350,232 @@ const CAREER_DATA = {
     importantLinks: [
       { name: 'Business of Fashion', url: 'https://www.businessoffashion.com/' }
     ]
+  },
+  'ai-engineer': {
+    title: 'AI / Machine Learning Engineer',
+    icon: Database,
+    grad: 'linear-gradient(135deg, #10B981 0%, #047857 100%)',
+    description: 'Design and deploy predictive models using enormous datasets. Train neural networks to automate complex human decisions and build the brain of the next generation of software.',
+    timeline: '4 Years (B.Tech CS / AI Spec)',
+    startingSalary: '₹8.0L - ₹20.0L Base',
+    growth: 'Exponential',
+    dayInLife: 'Wrangling messy petabytes of data, configuring GPU clusters for model training, tuning hyperparameters on PyTorch models, and deploying inference endpoints.',
+    expectedDuties: ['Algorithm design', 'Data pipeline creation', 'Model deployment', 'Performance tuning'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Python & Math', desc: 'Mastering Python, Linear Algebra, Calculus, and Statistics.' },
+      { year: 'Phase 2', title: 'Core ML Algorithms', desc: 'Implementing Random Forests, SVMs, and XGBoost models.' },
+      { year: 'Phase 3', title: 'Deep Learning', desc: 'Building CNNs and RNNs using TensorFlow or PyTorch.' },
+      { year: 'Phase 4', title: 'AI Architect', desc: 'Deploying LLMs and generative agents into large-scale production.' }
+    ],
+    keyTools: ['PyTorch', 'TensorFlow', 'Python (Pandas/NumPy)', 'AWS SageMaker'],
+    topCompanies: ['Google DeepMind', 'OpenAI', 'Microsoft', 'NVIDIA'],
+    importantLinks: [
+      { name: 'Kaggle Datasets', url: 'https://www.kaggle.com/' }
+    ]
+  },
+  'web-developer': {
+    title: 'Fullstack Web Developer',
+    icon: Globe,
+    grad: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+    description: 'Architecting scalable web platforms, building dynamic UI/UX, and engineering backend data structures that serve millions of web clients daily.',
+    timeline: '3-4 Years (B.Tech / DCA)',
+    startingSalary: '₹5.0L - ₹12.0L Base',
+    growth: 'High',
+    dayInLife: 'Writing React components, configuring Node.js backend schemas, querying SQL databases, and linking responsive interfaces to complex API endpoints.',
+    expectedDuties: ['Frontend building', 'Backend routing', 'Database management', 'Server deployment'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Frontend Basics', desc: 'Mastering HTML, CSS, JavaScript, and DOM manipulation.' },
+      { year: 'Phase 2', title: 'React / Next.js', desc: 'Building complex single-page applications and utilizing state management.' },
+      { year: 'Phase 3', title: 'Backend / DB', desc: 'Learning Node.js, Express, and PostgreSQL/MongoDB arrays.' },
+      { year: 'Phase 4', title: 'Lead Fullstack', desc: 'Deploying robust cloud ecosystems and handling massive traffic arrays.' }
+    ],
+    keyTools: ['React', 'Node.js', 'PostgreSQL', 'Vercel'],
+    topCompanies: ['Amazon', 'Flipkart', 'TCS', 'Tech Startups'],
+    importantLinks: [
+      { name: 'MDN Web Docs', url: 'https://developer.mozilla.org/' }
+    ]
+  },
+  'game-developer': {
+    title: 'Game Engine Developer',
+    icon: PlayCircle,
+    grad: 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)',
+    description: 'Engineering the physics, graphics, and interactive realities of the gaming world. Pushing hardware limitations to map thousands of entities at 60 frames per second.',
+    timeline: '4 Years (B.Tech / Game Dev Diploma)',
+    startingSalary: '₹4.5L - ₹10.0L Base',
+    growth: 'Steady',
+    dayInLife: 'Writing C++ rendering paths, tweaking rigid-body physics engines, optimizing memory allocations for massive asset streaming, and collaborating with 3D riggers.',
+    expectedDuties: ['Physics scripting', 'Graphics optimization', 'AI behavior mapping', 'Cross-platform porting'],
+    roadmap: [
+      { year: 'Phase 1', title: 'C++ & Math', desc: 'Mastering pointer logic, linear algebra for vectors, and deep memory management.' },
+      { year: 'Phase 2', title: 'Engine Fundamentals', desc: 'Building small games using Unity (C#) or Unreal (C++).' },
+      { year: 'Phase 3', title: 'Graphics Programming', desc: 'Understanding shaders, OpenGL/DirectX, and rendering pipelines.' },
+      { year: 'Phase 4', title: 'Lead Technical', desc: 'Architecting custom engines or leading AAA structural engineering.' }
+    ],
+    keyTools: ['Unreal Engine', 'Unity', 'C++', 'Blender'],
+    topCompanies: ['Rockstar', 'Ubisoft', 'EA Sports', 'Sony'],
+    importantLinks: [
+      { name: 'Unreal Engine Docs', url: 'https://docs.unrealengine.com/' }
+    ]
+  },
+  'cyber-analyst': {
+    title: 'Cybersecurity Analyst',
+    icon: ShieldCheck,
+    grad: 'linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)',
+    description: 'Acting as the digital shield for entire institutions. Cyber analysts hunt threats, secure perimeters, and perform extreme stress tests (pentesting) on corporate infrastructure.',
+    timeline: '3-4 Years (B.Tech CS / Cyber Certs)',
+    startingSalary: '₹6.0L - ₹14.0L Base',
+    growth: 'Massive',
+    dayInLife: 'Monitoring real-time traffic for packet anomalies, executing ethical hacking scripts against dev servers, patching vulnerability loops, and writing massive security audits.',
+    expectedDuties: ['Penetration testing', 'Network defense', 'Incident response', 'Audit reporting'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Networking Basics', desc: 'Understanding OSI models, TCP/IP, and Linux kernel execution.' },
+      { year: 'Phase 2', title: 'Security Certifications', desc: 'Passing CompTIA Security+ and CEH (Certified Ethical Hacker).' },
+      { year: 'Phase 3', title: 'Active Pentesting', desc: 'Utilizing Kali Linux to breach dummy servers.' },
+      { year: 'Phase 4', title: 'CISO', desc: 'Chief Information Security Officer protecting billions in corporate data.' }
+    ],
+    keyTools: ['Kali Linux', 'Wireshark', 'Metasploit', 'Burp Suite'],
+    topCompanies: ['Cisco', 'ISRO', 'Palo Alto Networks', 'CrowdStrike'],
+    importantLinks: [
+      { name: 'HackTheBox', url: 'https://www.hackthebox.com/' }
+    ]
+  },
+  'graphic-designer': {
+    title: 'Graphic Designer',
+    icon: PenTool,
+    grad: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)',
+    description: 'Visual architects who construct brand identities. You dictate the exact psychological colors, shapes, and typography that influence how millions perceive a product.',
+    timeline: '3-4 Years (BFA / Design Bootcamps)',
+    startingSalary: '₹3.5L - ₹8.0L Base',
+    growth: 'Stable',
+    dayInLife: 'Sketching logo variants in Illustrator, adjusting kerning natively across ad campaigns, finalizing print CMYK files, and debating aesthetic tension with creative directors.',
+    expectedDuties: ['Brand identity', 'Typography', 'Vector illustration', 'Layout scaling'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Color & Layout', desc: 'Mastering color theory, grid systems, and visual hierarchy.' },
+      { year: 'Phase 2', title: 'Vector & Raster Master', desc: 'Learning Adobe Illustrator and Photoshop natively.' },
+      { year: 'Phase 3', title: 'Portfolio Curation', desc: 'Executing fictional rebrands and securing agency internships.' },
+      { year: 'Phase 4', title: 'Art Director', desc: 'Commanding massive global branding revamps for Fortune 500s.' }
+    ],
+    keyTools: ['Adobe Illustrator', 'Photoshop', 'Figma', 'InDesign'],
+    topCompanies: ['Ogilvy', 'Pentagram', 'WPP', 'Freelance Boutiques'],
+    importantLinks: [
+      { name: 'Behance', url: 'https://www.behance.net/' }
+    ]
+  },
+  'content-writer': {
+    title: 'Professional Content Writer',
+    icon: BookOpen,
+    grad: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+    description: 'Writers structure exactly what the internet reads. From converting massive e-commerce sales blocks to drafting highly informative technical manuals.',
+    timeline: '3 Years (BA English / Comms)',
+    startingSalary: '₹3.0L - ₹7.0L Base',
+    growth: 'Moderate',
+    dayInLife: 'Researching niche B2B tech topics, structuring keyword-dense SEO architecture, drafting 2000-word authoritative articles, and polishing grammar syntax.',
+    expectedDuties: ['SEO optimization', 'Technical writing', 'Copywriting', 'Editing'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Grammar & Syntax', desc: 'Achieving absolute perfection in English composition and flow.' },
+      { year: 'Phase 2', title: 'SEO Mechanics', desc: 'Understanding how Google ranks textual information organically.' },
+      { year: 'Phase 3', title: 'Niche Specialization', desc: 'Becoming an expert writer in a high-paying niche like Finance or SaaS.' },
+      { year: 'Phase 4', title: 'Content Head', desc: 'Managing massive editorial teams and structuring publication roadmaps.' }
+    ],
+    keyTools: ['Google Docs', 'Grammarly', 'Ahrefs', 'WordPress'],
+    topCompanies: ['Tech Blogs', 'HubSpot', 'Ad Agencies', 'EdTech'],
+    importantLinks: [
+      { name: 'Copyblogger', url: 'https://copyblogger.com/' }
+    ]
+  },
+  'musician': {
+    title: 'Professional Musician',
+    icon: Music,
+    grad: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+    description: 'Composing the audial frequencies that define human culture. Operating heavily in film score compositions, commercial audio, and independent artistry.',
+    timeline: 'Varial (B.Music / Self-Taught)',
+    startingSalary: '₹2.0L - ₹8.0L (Highly Variable)',
+    growth: 'Unpredictable',
+    dayInLife: 'Running isolated vocal scales, layering MIDI tracks in complex DAWs, adjusting EQ compression on master tracks, and rehearsing for massive live sets.',
+    expectedDuties: ['Audio mixing', 'Instrument mastery', 'Vocal tracking', 'Live performance'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Instrument / DAWs', desc: 'Mastering an instrument and learning Ableton or Logic Pro natively.' },
+      { year: 'Phase 2', title: 'Music Theory', desc: 'Understanding complex harmonics, rhythm structures, and scales.' },
+      { year: 'Phase 3', title: 'Production / Gigs', desc: 'Playing local circuits or releasing master tracks to streaming services.' },
+      { year: 'Phase 4', title: 'Label / Studio', desc: 'Producing for major label artists or scoring massive commercial cinema.' }
+    ],
+    keyTools: ['Logic Pro / Ableton', 'Instruments', 'Microphones', 'Monitors'],
+    topCompanies: ['Sony Music', 'T-Series', 'Spotify', 'Independent'],
+    importantLinks: [
+      { name: 'Sound on Sound', url: 'https://www.soundonsound.com/' }
+    ]
+  },
+  'investment-banker': {
+    title: 'Investment Banker',
+    icon: TrendingUp,
+    grad: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
+    description: 'Operating at the sharpest edge of global capital. You govern Mergers and Acquisitions (M&A), orchestrate IPOs, and execute billion-dollar cash movements.',
+    timeline: '5 Years (B.Com/BBA + Elite MBA)',
+    startingSalary: '₹15.0L - ₹35.0L+ Base',
+    growth: 'Massive',
+    dayInLife: 'Working 14-hour sprints building impossibly complex financial forecasts, assembling pitch books for executive clients, and executing legal M&A paperwork.',
+    expectedDuties: ['Mergers & Acquisitions', 'IPO structuring', 'DCF Valuation', 'Pitching clients'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Elite Academics', desc: 'Securing top-tier grades in commerce/finance degrees.' },
+      { year: 'Phase 2', title: 'Tier 1 MBA', desc: 'Cracking CAT/GMAT and passing through an IIM or equivalent tier-1 B-school.' },
+      { year: 'Phase 3', title: 'Analyst Grind', desc: 'Working massive hours running spreadsheets at a bulge-bracket bank.' },
+      { year: 'Phase 4', title: 'Managing Director', desc: 'Sourcing deals actively, shaking hands with billionaires, and capturing massive commission fees.' }
+    ],
+    keyTools: ['Excel (No Mouse)', 'Bloomberg Terminal', 'PowerPoint', 'CapitalIQ'],
+    topCompanies: ['Goldman Sachs', 'J.P. Morgan', 'Morgan Stanley', 'Avendus'],
+    importantLinks: [
+      { name: 'Wall Street Oasis', url: 'https://www.wallstreetoasis.com/' }
+    ]
+  },
+  'entrepreneur': {
+    title: 'Tech Entrepreneur',
+    icon: Lightbulb,
+    grad: 'linear-gradient(135deg, #F43F5E 0%, #E11D48 100%)',
+    description: 'Founders build completely new assets from nothing. They combine product engineering with aggressive market distribution to solve painful societal inefficiencies.',
+    timeline: 'Variable',
+    startingSalary: '₹0 (Equity / Variable)',
+    growth: 'Infinite',
+    dayInLife: 'Pitching VC firms for seed capital, interviewing core engineering hires, reviewing product UI/UX specs, and putting out 5 different corporate fires simultaneously.',
+    expectedDuties: ['Product vision', 'Capital raising', 'Hiring teams', 'Sales distribution'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Problem Discovery', desc: 'Finding a massive hole in the market that people will pay to solve.' },
+      { year: 'Phase 2', title: 'MVP / Build', desc: 'Coding or assembling the Minimum Viable Product quickly.' },
+      { year: 'Phase 3', title: 'Seed Funding', desc: 'Convincing Angel investors or VCs to fund your early traction.' },
+      { year: 'Phase 4', title: 'Scale or Exit', desc: 'Hitting Product-Market Fit and driving to a massive IPO or acquisition event.' }
+    ],
+    keyTools: ['Figma', 'Stripe', 'AWS/Vercel', 'Notion'],
+    topCompanies: ['YC Startups', 'SaaS Ventures', 'DeepTech Orgs'],
+    importantLinks: [
+      { name: 'Y Combinator Library', url: 'https://www.ycombinator.com/library' }
+    ]
+  },
+  'hr-manager': {
+    title: 'HR Operations Lead',
+    icon: Network,
+    grad: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+    description: 'Managing the most critical asset of any massive corporation: Human Capital. They govern hiring, firing, culture metrics, and legal workplace compliances.',
+    timeline: '3-5 Years (BBA + MBA HR)',
+    startingSalary: '₹6.0L - ₹12.0L Base',
+    growth: 'Stable',
+    dayInLife: 'Executing high-level candidate interviews, arbitrating internal dispute complaints, establishing quarterly compensation structures, and scaling the headcount natively.',
+    expectedDuties: ['Recruitment scaling', 'Compliance', 'Payroll architecture', 'Culture execution'],
+    roadmap: [
+      { year: 'Phase 1', title: 'Core Comms', desc: 'Understanding basic human psychology, organizational limits, and labor laws.' },
+      { year: 'Phase 2', title: 'Talent Acquisition', desc: 'Operating as a sourcer or recruiter finding elite tech/business talent.' },
+      { year: 'Phase 3', title: 'HR Business Partner', desc: 'Aligning directly with engineering/sales heads to map their hiring needs.' },
+      { year: 'Phase 4', title: 'CHRO', desc: 'Chief HR Officer defining global employee retention and benefits strategy.' }
+    ],
+    keyTools: ['Workday', 'LinkedIn Recruiter', 'Greenhouse', 'BambooHR'],
+    topCompanies: ['Google', 'TCS', 'Accenture', 'Reliance Industries'],
+    importantLinks: [
+      { name: 'SHRM Official', url: 'https://www.shrm.org/' }
+    ]
   }
 };
 
 export default function CareerDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
   const safeId = typeof id === 'string' ? id.toLowerCase() : 'software-developer';
 
@@ -362,10 +584,10 @@ export default function CareerDetailPage() {
 
   return (
     <div className="max-w-[1200px] mx-auto pb-4 space-y-2 animate-in fade-in duration-500">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-        <Link href="/career-paths" className="inline-flex items-center justify-center gap-2 text-slate-500 hover:text-blue-600 font-bold text-[11px] uppercase tracking-widest bg-white/50 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm transition-all hover:bg-white/80 hover:-translate-x-1 border border-white w-full sm:w-auto">
-          <ChevronLeft className="w-4 h-4" /> Back to Paths
-        </Link>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 -mb-1 relative z-20">
+        <button onClick={() => router.back()} className="inline-flex items-center justify-center gap-2 text-slate-500 hover:text-blue-600 font-bold text-[11px] uppercase tracking-widest bg-white/50 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm transition-all hover:bg-white/80 hover:-translate-x-1 border border-white w-full sm:w-auto">
+          <ChevronLeft className="w-4 h-4" /> Back
+        </button>
         <div className="bg-sky-50/70 backdrop-blur-md text-cyan-600 px-3 py-1.5 rounded-lg border border-sky-200/50 font-bold text-[11px] uppercase tracking-widest w-full sm:w-auto text-center flex justify-center items-center gap-2 shadow-sm">
           <Activity className="w-3.5 h-3.5" /> Actively Hiring Role
         </div>

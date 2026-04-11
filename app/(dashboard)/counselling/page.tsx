@@ -12,9 +12,9 @@ export default function CounsellingPage() {
       <h1>Counselling Session</h1>
       <AgoraWrapper>
         {/* IMPORTANT: Use a REAL token from Agora Console here */}
-        <VideoContainer 
-            channelName="test-room" 
-            appId={process.env.NEXT_PUBLIC_AGORA_APP_ID!} 
+        <VideoContainer
+          channelName="test-room"
+          appId={process.env.NEXT_PUBLIC_AGORA_APP_ID!}
         />
       </AgoraWrapper>
     </main>

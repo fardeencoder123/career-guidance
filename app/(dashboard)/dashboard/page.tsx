@@ -287,10 +287,10 @@ export default function DashboardPage() {
                     ))}
                   </ul>
 
-                  <button className={`w-full bg-gradient-to-r ${stream.btnGradient} text-white rounded-2xl py-2.5 text-sm font-semibold transition-all shadow-lg ${stream.btnShadow} hover:shadow-xl flex items-center justify-center gap-2`}>
+                  <Link href={`/view-career/${stream.name.toLowerCase()}`} className={`w-full bg-gradient-to-r ${stream.btnGradient} text-white rounded-2xl py-2.5 text-sm font-semibold transition-all shadow-lg ${stream.btnShadow} hover:shadow-xl flex items-center justify-center gap-2`}>
                     View Careers
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             );
@@ -305,11 +305,6 @@ export default function DashboardPage() {
             <h2 className="text-lg font-bold text-slate-800">Explore Career Paths</h2>
             <p className="text-xs text-slate-400 mt-0.5">Government colleges &amp; job opportunities</p>
           </div>
-          <Link href="/explore-career-paths" className="flex items-center gap-2 text-sm text-slate-500 border border-slate-200 bg-white/60 rounded-xl px-4 py-2 hover:bg-white/80 transition-colors font-medium">
-            <Building2 className="w-4 h-4" />
-            Explore paths
-            <ChevronRight className="w-4 h-4" />
-          </Link>
         </div>
 
         <div className="bg-white/60 backdrop-blur-sm rounded-3xl border border-white/80 p-6">
